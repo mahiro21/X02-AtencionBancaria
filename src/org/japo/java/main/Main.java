@@ -15,9 +15,9 @@
  */
 package org.japo.java.main;
 
-import java.util.Calendar;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  *
@@ -25,55 +25,81 @@ import java.util.Scanner;
  */
 public final class Main {
 
+    //Objeto random
+    public static final Random RND = new Random();
+
+    //Objeto scanner
     public static final Scanner SCN
             = new Scanner(System.in, "Windows-1252")
                     .useLocale(Locale.ENGLISH);
 
     public static void main(String[] args) {
-        // Generar dato
-        int Hora, Minuto, Segundo;
-        Calendar tiempo = Calendar.getInstance();
-        
-        int SecondI, SecondA;
-        int  HoraCal, MinutoCal, SegundoCal;
+        //Limite dia
+        final int H_MIN = 0;
+        final int H_MAX = 23;
+        final int M_MIN = 0;
+        final int M_MAX = 59;
+        final int TMP_MIN = 0;
+        final int TMP_MAX = H_MAX * 60 + M_MAX;
+
+        //Atencio bancaria
+        final int H_INI = 10;
+        final int H_FIN = 12;
+        final int M_INI = 30;
+        final int M_FIN = 15;
+        final int TMP_INI = H_INI * 60 + M_INI;
+        final int TMP_FIN = H_FIN * 60 + M_FIN;
+
+        //Hora aleatoria
+        int HoraRND = RND.nextInt((H_MAX - H_MIN - 1) - H_MIN);
+        int MinutRND = RND.nextInt((M_MAX - M_MIN - 1) - M_MIN);
+        int TMP_RND;
+
+        //Hora de usuario
+        int HoraUser;
+        int MinutUser;
+        int TMP_User;
 
         try {
-            //Insertar datos
-            System.out.printf("Inserte Hora .............:");
-            Hora = SCN.nextInt();
-            System.out.printf("Inserte Minuto .............:");
-            Minuto = SCN.nextInt();
-            System.out.printf("Inserte Segundo .............:");
-            Segundo = SCN.nextInt();
-            //Devolver resultado
-            System.out.printf("Hora inicio ......: %02d:%02d:%02d%n", Hora, Minuto, Segundo);
-            System.out.printf("Hora Actual ......: %tT%n ", tiempo);
+            //Input user
+            //Hora Consola
+            System.out.printf("Hora actual ....:");
+            HoraUser = SCN.nextInt();
 
-            
-            //Operaciones
-            SecondI = Hora * 3600 + Minuto * 60 + Segundo;
-            SecondA = tiempo.get(Calendar.HOUR_OF_DAY) * 3600 + tiempo.get(Calendar.MINUTE) * 60 + tiempo.get(Calendar.SECOND);
-            //segundos
-            /*System.out.println(SecondA);
-             System.out.println(SecondI);*/
-            SegundoCal = SecondA - SecondI;
-            
-            //Minutos
-            MinutoCal = SegundoCal / 60;
-            SegundoCal = SegundoCal % 60;
+            //Minuto consola
+            System.out.printf("Minuto actual ....:");
+            MinutUser = SCN.nextInt();
 
-            //Horas
-            HoraCal = MinutoCal / 60;
-            MinutoCal = MinutoCal % 60;
-             System.out.printf("Tiempo de clase ..: %02d:%02d:%02d%n", HoraCal, MinutoCal, SegundoCal);
-                   
+            System.out.printf("=================================================%n");
+
+            //Tiempo user & random
+            //Previsualización Hora de usuario y random
+            System.out.printf("Hora actual proporcionada ....: %02d:%02d%n", HoraUser, MinutUser);
+            System.out.printf("Hora actual random ....: %02d:%02d%n", HoraRND, MinutRND);
+
+            TMP_User = HoraUser * 60 + MinutUser;
+            TMP_RND = HoraRND * 60 + MinutRND;
+
+            System.out.printf("=================================================%n");
+            
+            //Resultado
+            String TimeConsol;
+            TimeConsol = (TMP_User >= TMP_INI && TMP_User <= TMP_FIN) ? "Horario correcto" : "Horario incorrecto";
+                
+            String TimeRandom;
+            TimeRandom = (TMP_RND >= TMP_INI && TMP_RND <= TMP_FIN) ? "Horario correcto" : "Horario incorrecto";
+            
+            System.out.printf("Tiempo incorporado por consola ....:%s%n", TimeConsol);
+            System.out.printf("Tiempo Aleatorio ....:%s%n", TimeRandom);
+
         } catch (Exception e) {
             //Mensaje
             System.out.printf("ERROR: Entrada incorrecta");
-        } /*finally {
+        } finally {
+
             //Borrar buffer
             SCN.nextLine();
-        }*/
+        }
 
     }
 }
