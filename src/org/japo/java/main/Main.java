@@ -1,5 +1,5 @@
 /* 
- * 
+ * Copyright 2019 Mario Merlos Abella <mario.merlos.alum@iescamp.es>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,8 +39,6 @@ public final class Main {
         final int H_MAX = 23;
         final int M_MIN = 0;
         final int M_MAX = 59;
-        final int TMP_MIN = 0;
-        final int TMP_MAX = H_MAX * 60 + M_MAX;
 
         //Atencio bancaria
         final int H_INI = 10;
